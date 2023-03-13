@@ -19,9 +19,7 @@ import { useEffect, useState, useRef } from "react";
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
 // javascipt plugin for creating charts
-import Chart from "chart.js";
 // react plugin used to create charts
-import { Line, Bar } from "react-chartjs-2";
 
 import "./pop.css";
 // reactstrap components
@@ -51,12 +49,7 @@ import {
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 // core components
-import {
-  chartOptions,
-  parseOptions,
-  chartExample1,
-  chartExample2,
-} from "variables/charts.js";
+
 
 import Header from "components/Headers/Header.js";
 
@@ -133,13 +126,13 @@ const Index = (props) => {
 
   const test = [
     // 추후 api로 데이터 가져오는 거 대신해서 임시용으로 쓰는 데이터 항목
-   
+
     {
       time: `${new Date()}`,
       content: "텍스트 관련 영역",
       picsrc: ["mybg.jpg", "city-removebg-preview.png"],
       title: "제목",
-      like:"good"
+      like: "good"
     },
     {
       time: `${new Date()}`,
@@ -158,7 +151,7 @@ const Index = (props) => {
       content: "https://kr.freepik.com/free-photo/beautiful-tree-in-the-middle-of-a-field-covered-with-grass-with-the-tree-line-in-the-background_13005861.htm#query=nature%20background&position=4&from_view=keyword&track=ais  와   https://kr.freepik.com/free-photo/nature-product-backdrop-green-trees-and-sunlight_19139052.htm#query=nature%20background&position=12&from_view=keyword&track=ais 작가 rawpixel.com",
       picsrc: ["나무.jpg", "나무나무.jpg", "짱.jpg", "cd.jpg"],
       title: "제목",
-      
+
     },
     {
       time: `${new Date()}`,
@@ -215,10 +208,7 @@ const Index = (props) => {
     },
   ];
 
-  if (window.Chart) {
-    //그..원래 있던거라
-    parseOptions(Chart, chartOptions());
-  }
+
 
   const toggleNavs = (e, index) => {
     e.preventDefault();
@@ -227,11 +217,11 @@ const Index = (props) => {
   };
 
   const buttonRefs = useRef([]);
- 
-    const likeClick = (key) => {
-      console.log( buttonRefs.current)
-      buttonRefs.current[key].classList.toggle('likeafter');
-    };
+
+  const likeClick = (key) => {
+    console.log(buttonRefs.current)
+    buttonRefs.current[key].classList.toggle('likeafter');
+  };
   function testarrpush() {
     //맨 아래로 스크롤 할 경우 추가로 데이터를 들여올 때 쓰여지는 항목 set
     const arr = {
@@ -252,7 +242,7 @@ const Index = (props) => {
 
     // console.log("") 이게 바닐라버전..?
     setcheck((check) => check + 1); //이게 react 버전
-    check%2==0 ?  setdata((data) => [...data, arr2]): setdata((data) => [...data, arr]);
+    check % 2 == 0 ? setdata((data) => [...data, arr2]) : setdata((data) => [...data, arr]);
   }
 
   const handleScroll = () => {
@@ -269,9 +259,9 @@ const Index = (props) => {
   useEffect(() => {
     setdata(test);
     setdatahit(true);
- 
+
   }, []);
-  useEffect(()=>{
+  useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   })
@@ -292,41 +282,41 @@ const Index = (props) => {
           <Col xl="6">
             {datahit
               ? data.map((row, key) => {
-                  if (row.picsrc.length > 2) {
-                    //이제 한 화면에 두개 나오게
-                    console.log("2개 뽑기");
-                  }
-                  return (
-                    <Col className="mb-5 mb-xl-0 " xl="12" key={key}>
-                      {/*이거 크기 조절인데 어케할지 생각해보자 크게크게해서 안에 이미지를 줄이는게 낫나 아니면 보통사이즈로해서 최대한 덜 쪼개지게 하는게 맞나*/}
-                      <Card className="my-2 bg-secondary shadow border-1">
-                        <CardImg
-                          alt="Card image cap"
-                          src={`https://jonghyunportfolio.s3.ap-northeast-2.amazonaws.com/${row.picsrc[0]}`}
-                          style={{
-                            width: "100%",
-                          }}
-                          onClick={() => imgarrin(row.picsrc)}
-                        />
-                        <CardBody>
-                          <CardTitle tag="h5">
-                            {row.title}
-                          </CardTitle>
-                          <CardText>{row.content}</CardText>
-                          <CardText>
-                            <small className="text-muted">{row.time}</small>
-                          </CardText>
-                          {row.like==="good"? 
+                if (row.picsrc.length > 2) {
+                  //이제 한 화면에 두개 나오게
+                  console.log("2개 뽑기");
+                }
+                return (
+                  <Col className="mb-5 mb-xl-0 " xl="12" key={key}>
+                    {/*이거 크기 조절인데 어케할지 생각해보자 크게크게해서 안에 이미지를 줄이는게 낫나 아니면 보통사이즈로해서 최대한 덜 쪼개지게 하는게 맞나*/}
+                    <Card className="my-2 bg-secondary shadow border-1">
+                      <CardImg
+                        alt="Card image cap"
+                        src={`https://jonghyunportfolio.s3.ap-northeast-2.amazonaws.com/${row.picsrc[0]}`}
+                        style={{
+                          width: "100%",
+                        }}
+                        onClick={() => imgarrin(row.picsrc)}
+                      />
+                      <CardBody>
+                        <CardTitle tag="h5">
+                          {row.title}
+                        </CardTitle>
+                        <CardText>{row.content}</CardText>
+                        <CardText>
+                          <small className="text-muted">{row.time}</small>
+                        </CardText>
+                        {row.like === "good" ?
                           <i className="ni ni-favourite-28 hoverEffect likeafter"></i>
-   //classList.toggle 로 데이터 넣어서
-                           :
-                          <i onClick={()=>likeClick(key)} className="ni ni-favourite-28 hoverEffect"></i>
-                           }
-                        </CardBody>
-                      </Card>
-                    </Col>
-                  );
-                })
+                          //classList.toggle 로 데이터 넣어서
+                          :
+                          <i onClick={() => likeClick(key)} className="ni ni-favourite-28 hoverEffect"></i>
+                        }
+                      </CardBody>
+                    </Card>
+                  </Col>
+                );
+              })
               : "스켈레톤 준비! 악! 같은 양식으로 이미지나 있는 부분에 저저저 저 저 뭐냐 색 해서 animation효과만 넣어서 멈춘거 아니다 보여주는 용도로"}
           </Col>
           <Col xl="1"></Col>
@@ -359,9 +349,9 @@ const Index = (props) => {
                               className="media-body"
                               style={{
 
-                              maxWidth: '200px',
-                              overflow:"hidden",
-                              textOverflow:"ellipsis"
+                                maxWidth: '200px',
+                                overflow: "hidden",
+                                textOverflow: "ellipsis"
                               }}
                             >
                               <h5 className="mt-0">{row.name}</h5>
@@ -423,13 +413,7 @@ const Index = (props) => {
               </CardHeader>
               <CardBody>
                 Chart
-                <div className="chart">
-                  <Line
-                    data={chartExample1[chartExample1Data]}
-                    options={chartExample1.options}
-                    getDatasetAtEvent={(e) => console.log(e)}
-                  />
-                </div>
+               
               </CardBody>
             </Card>
           </Col>
@@ -446,13 +430,7 @@ const Index = (props) => {
                 </Row>
               </CardHeader>
               <CardBody>
-                Chart
-                <div className="chart">
-                  <Bar
-                    data={chartExample2.data}
-                    options={chartExample2.options}
-                  />
-                </div>
+               
               </CardBody>
             </Card>
           </Col>
@@ -504,15 +482,7 @@ const Index = (props) => {
                       46,53%
                     </td>
                   </tr>
-                  <tr>
-                    <th scope="row">/argon/charts.html</th>
-                    <td>3,513</td>
-                    <td>294</td>
-                    <td>
-                      <i className="fas fa-arrow-down text-warning mr-3" />{" "}
-                      36,49%
-                    </td>
-                  </tr>
+                
                   <tr>
                     <th scope="row">/argon/tables.html</th>
                     <td>2,050</td>
