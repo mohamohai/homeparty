@@ -20,7 +20,6 @@ import { useState, useEffect } from "react";
 import { NavLink as NavLinkRRD, Link } from "react-router-dom";
 // nodejs library to set properties for components
 import { PropTypes } from "prop-types";
-import SidebarModalWrite from "./SidebarModal.js/Writer";
 // reactstrap components
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -55,12 +54,12 @@ import {
 var ps;
 
 const Sidebar = (props) => {
-const [collapseOpen, setCollapseOpen] = useState();
+  const [collapseOpen, setCollapseOpen] = useState();
   // verifies if routeName is the one active (in browser input)
-const [hashTagText, sethashTagText] = useState("");
-const [hasharr, sethasharr] = useState([]);
-const [show, setShow] = useState(false);
-const [WriteContent,setWriteContent]=useState('')
+  const [hashTagText, sethashTagText] = useState("");
+  const [hasharr, sethasharr] = useState([]);
+  const [show, setShow] = useState(false);
+  const [WriteContent, setWriteContent] = useState('')
 
   function openModal() {
     setIsModalOpen(true);
@@ -79,20 +78,20 @@ const [WriteContent,setWriteContent]=useState('')
     if (e.key === "Enter") {
       hasharr.push(hashTagText);
       sethashTagText("");
-      document.getElementsByClassName("hashbox").value='';
+      document.getElementsByClassName("hashbox").value = '';
     }
   }
-  
 
-  function hasharrDel(DelData, key,ab) {  //해시태그 삭제쪽
-    console.log(DelData, key,ab);
-    const Delarr= hasharr.filter((row)=>row!==DelData);
+
+  function hasharrDel(DelData, key, ab) {  //해시태그 삭제쪽
+    console.log(DelData, key, ab);
+    const Delarr = hasharr.filter((row) => row !== DelData);
     sethasharr(Delarr)
   }
 
 
 
-const activeRoute = (routeName) => {
+  const activeRoute = (routeName) => {
     return props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
   };
   // toggles collapse between opened and closed (true/false)
@@ -141,17 +140,17 @@ const activeRoute = (routeName) => {
   }
 
 
- 
+
   return (
     <Navbar
       className="navbar-vertical fixed-left navbar-light bg-white"
       expand="md"
       id="sidenav-main"
     >
-      <Modal show={show}  onHide={() => {
-          setShow(false);
-          console.log("여기에 state각종 초기화 관련 넣어서")
-        }}>
+      <Modal show={show} onHide={() => {
+        setShow(false);
+        console.log("여기에 state각종 초기화 관련 넣어서")
+      }}>
         <Modal.Header closeButton>
           <Modal.Title>글쓰기</Modal.Title>
         </Modal.Header>
@@ -180,15 +179,15 @@ const activeRoute = (routeName) => {
               />
               {hasharr.map((row, key) => {
                 return (
-                  <div key={key}  className={`hash${row}`} style={{float:"left"}} onClick={()=>hasharrDel(row,key,`hash${row}`)}>
+                  <div key={key} className={`hash${row}`} style={{ float: "left" }} onClick={() => hasharrDel(row, key, `hash${row}`)}>
                     &nbsp;#{row}
-                   
-                    </div>
+
+                  </div>
                 );
               })}
-             
+
             </Form.Group>
-              <div style={{clear:'both'}}></div>
+            <div style={{ clear: 'both' }}></div>
             <Form.Group controlId="formFileSm" className="mb-3">
               <Form.Label>이미지 파일 업로드 (1개)</Form.Label>
               <Form.Control type="file" size="sm" />
@@ -196,7 +195,7 @@ const activeRoute = (routeName) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          
+
           <Button
             variant="primary"
             onClick={() => {
@@ -223,7 +222,7 @@ const activeRoute = (routeName) => {
               alt={logo.imgAlt}
               className="navbar-brand-img"
               src={logo.imgSrc}
-            /> 
+            />
             {/*로고 위치*/}
           </NavbarBrand>
         ) : null}
@@ -252,7 +251,7 @@ const activeRoute = (routeName) => {
                     alt="..."
                     src={`https://jonghyunportfolio.s3.ap-northeast-2.amazonaws.com/마자용.jpg`}
                     style={{ width: "50px", maxHeight: "30px" }}
-                    //여기가 데이터 바당왔을 떄 쓰는 아이콘 이미지
+                  //여기가 데이터 바당왔을 떄 쓰는 아이콘 이미지
                   />
                 </span>
               </Media>
@@ -315,7 +314,7 @@ const activeRoute = (routeName) => {
               </Col>
             </Row>
           </div>
-        
+
 
           {/* Form */}
           <Form className="mt-4 mb-3 d-md-none">
@@ -334,13 +333,13 @@ const activeRoute = (routeName) => {
             </InputGroup>
           </Form>
           {/* Navigation */}
-          <Nav navbar>{createLinks(routes)}</Nav> 
+          <Nav navbar>{createLinks(routes)}</Nav>
           {/* 여기가 그 라우터 애들 받아서 뿌려주는 곳 */}
-         <span onClick={()=>{setShow(true)}}>Write</span>
-         <div>
-      
-     
-    </div>
+          <span onClick={() => { setShow(true) }}>Write</span>
+          <div>
+
+
+          </div>
         </Collapse>
       </Container>
     </Navbar>
